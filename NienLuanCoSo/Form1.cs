@@ -15,10 +15,10 @@ namespace NienLuanCoSo
     {
         int startPointX;
         int startPointY;
-        Image colorPicture;
+        int colorPicture;
         int EndPointX;
         int EndPointY;
-
+        int[,] board;
         Algorithms algo = new Algorithms();
         string[] balls = {"",
             "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\brown.png" ,
@@ -42,31 +42,25 @@ namespace NienLuanCoSo
             Random ran = new Random();
 
             // init 
-            int[,] board = algo.InitBoard();
-            var path = algo.BFS(board, 5, 5, 0, 0);
-            LinkedList<string> findPath = algo.findPath(path, 5, 5, 0, 0);
-            //int[, ] path = algo.BFS(board, 4, 5, 0, 0);
+            board = algo.InitBoard();
            
-            foreach (KeyValuePair<string, string> ele2 in path)
-            {
-                Console.WriteLine("{0} and {1}", ele2.Key, ele2.Value);
-            }
+            //LinkedList<string> findPath = algo.findPath(board, 5, 5, 0, 0);
+            
 
-            foreach (string item in findPath)
-            {
-                Console.Write(item + " ");
-            }
-            Console.WriteLine();
+            // in tat ca duong di
+            //foreach (string item in findPath)
+            //{
+            //    Console.Write(item + " ");
+            //}
+            //Console.WriteLine();
 
             //Image newImage = Image.FromFile("E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\brown.png");
             //do not delete start
             try
             {
-
                 Hashtable NewBoard = algo.loadImage(board);
                 foreach (object key in NewBoard.Keys)
                 {
-
                     foreach (Control c in panel1.Controls)
                     {
                         PictureBox p = (PictureBox)c;
@@ -88,11 +82,26 @@ namespace NienLuanCoSo
         private void Change_value(object sender, EventArgs e)
         {
             PictureBox target = (PictureBox)sender;
-            colorPicture = target.Image;
-            startPointX = algo.FirstNumberX(target.Name);
-            startPointY = algo.FirstNumberY(target.Name);
-            MessageBox.Show(startPointX + " " + startPointY + " " + colorPicture);
+            if (colorPicture == 0)
+            {
+                startPointX = algo.FirstNumberX(target.Name);
+                startPointY = algo.FirstNumberY(target.Name);
+                colorPicture = board[startPointX, startPointY];
+                
+                MessageBox.Show("da chay gia tri dau");
+            }
+            else
+            {
+                EndPointX = algo.FirstNumberX(target.Name);
+                EndPointY = algo.FirstNumberY(target.Name);
+                LinkedList<string> findPath = algo.findPath(board, startPointX, startPointY, EndPointX, EndPointY);
+                foreach (string item in findPath)
+                {
+                    Console.Write(item + " ");
+                }
+                MessageBox.Show("da chay gia tri dich");
+                colorPicture = 0;
+            }
         }
-     
     }
 }

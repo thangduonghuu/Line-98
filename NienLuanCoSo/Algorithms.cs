@@ -10,8 +10,6 @@ namespace NienLuanCoSo
 {
     class Algorithms
     {
-
-     
         public int[,] InitBoard() {
             int[,] board = new int[9, 9];
             Random ran = new Random();
@@ -97,96 +95,7 @@ namespace NienLuanCoSo
 
         }
 
-        //public LinkedList<string> BFS(int[,] board, int startX, int startY, int endX, int endY)
-        //{
-        //    LinkedList<string> PathQueue = new LinkedList<string>();
-        //    LinkedList<string> Path = new LinkedList<string>();
-        //    int[,] ChiPhi = new int[9, 9];
-
-        //    int[] u = { 1, 0, -1, 0 };
-        //    int[] v = { 0, 1, 0, -1 };
-
-        //    bool[,] visited = ConvertBoardToBool(board);
-
-        //    PathQueue.AddLast(ConvertTwoPosition(startX, startY));
-        //    visited[startX, startY] = false;
-
-        //    while (PathQueue.Any())
-        //    {
-        //        int x = FirstNumberX(PathQueue.First());
-        //        int y = FirstNumberY(PathQueue.First());
-
-        //        PathQueue.RemoveFirst();
-        //        for (int k = 0; k < 4; k++)
-        //        {
-        //            int xx = x + u[k];
-        //            int yy = y + v[k];
-        //            if (xx == endX && yy == endY)
-        //            {
-        //                visited[x, y] = false;
-        //                return Path;
-        //            }
-        //            if (!isInside(xx, yy)) continue;
-
-        //            if (visited[xx, yy] == true)
-        //            {
-        //                visited[xx, yy] = false;
-        //                ChiPhi[xx, yy] = ChiPhi[x, y] + 1;
-        //                PathQueue.AddLast(ConvertTwoPosition(xx, yy));
-        //                Path.AddLast(ConvertTwoPosition(xx, yy));
-        //            }
-        //        }
-        //    }
-        //    return Path;
-        //}
-
-
-
-        // start BFS 
-        //public int[,] BFS(int[,] board, int startX, int startY, int endX, int endY)
-        //{
-        //    LinkedList<string> PathQueue = new LinkedList<string>();
-        //    Hashtable Path = new Hashtable();
-        //    int[,] ChiPhi = new int[9, 9];
-
-        //    int[] u = { 1, 0, -1, 0 };
-        //    int[] v = { 0, 1, 0, -1 };
-
-        //    bool[,] visited = ConvertBoardToBool(board);
-
-        //    PathQueue.AddLast(ConvertTwoPosition(startX, startY));
-        //    visited[startX, startY] = false;
-
-        //    while (PathQueue.Any())
-        //    {
-        //        int x = FirstNumberX(PathQueue.First());
-        //        int y = FirstNumberY(PathQueue.First());
-
-        //        PathQueue.RemoveFirst();
-        //        for (int k = 0; k < 4; k++)
-        //        {
-        //            int xx = x + u[k];
-        //            int yy = y + v[k];
-        //            if (xx == endX && yy == endY)
-        //            {
-        //                visited[x, y] = false;
-        //                return ChiPhi;
-        //            }
-        //            if (!isInside(xx, yy)) continue;
-
-        //            if (visited[xx, yy] == true)
-        //            {
-        //                visited[xx, yy] = false;
-        //                ChiPhi[xx, yy] = ChiPhi[x, y] + 1;
-        //                PathQueue.AddLast(ConvertTwoPosition(xx, yy));
-
-        //            }
-        //        }
-        //    }
-        //    return ChiPhi;
-        //}
-        //// end BFS 
-        // test
+      
         public Dictionary<string, string> BFS(int[,] board, int startX, int startY, int endX, int endY)
         {
             LinkedList<string> PathQueue = new LinkedList<string>();
@@ -231,10 +140,10 @@ namespace NienLuanCoSo
             return path;
         }
 
-        public LinkedList<string> findPath(Dictionary<string, string> AllPath, int startX , int startY , int endX , int endY )
+        public LinkedList<string> findPath(int[,] board, int startX , int startY , int endX , int endY )
         {
             LinkedList<string> Path = new LinkedList<string>();
-        
+            Dictionary<string, string> AllPath = BFS(board, startX, startY, endX, endY);
             int x, y;
             x = endX + 1;
             y = endY ;
@@ -257,7 +166,8 @@ namespace NienLuanCoSo
             }
             catch(Exception e)
             {
-                Console.WriteLine(x + " " + y);
+
+                Console.WriteLine(e.Message);
             }
             return Path;
         }
