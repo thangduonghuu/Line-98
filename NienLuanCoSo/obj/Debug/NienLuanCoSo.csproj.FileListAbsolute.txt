@@ -1,0 +1,10 @@
+E:\C#\NienLuanCoSo\NienLuanCoSo\bin\Debug\NienLuanCoSo.exe.config
+E:\C#\NienLuanCoSo\NienLuanCoSo\bin\Debug\NienLuanCoSo.exe
+E:\C#\NienLuanCoSo\NienLuanCoSo\bin\Debug\NienLuanCoSo.pdb
+E:\C#\NienLuanCoSo\NienLuanCoSo\obj\Debug\NienLuanCoSo.csprojAssemblyReference.cache
+E:\C#\NienLuanCoSo\NienLuanCoSo\obj\Debug\NienLuanCoSo.Form1.resources
+E:\C#\NienLuanCoSo\NienLuanCoSo\obj\Debug\NienLuanCoSo.Properties.Resources.resources
+E:\C#\NienLuanCoSo\NienLuanCoSo\obj\Debug\NienLuanCoSo.csproj.GenerateResource.cache
+E:\C#\NienLuanCoSo\NienLuanCoSo\obj\Debug\NienLuanCoSo.csproj.CoreCompileInputs.cache
+E:\C#\NienLuanCoSo\NienLuanCoSo\obj\Debug\NienLuanCoSo.exe
+E:\C#\NienLuanCoSo\NienLuanCoSo\obj\Debug\NienLuanCoSo.pdb
