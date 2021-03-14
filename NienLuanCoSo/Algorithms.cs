@@ -145,29 +145,47 @@ namespace NienLuanCoSo
             LinkedList<string> Path = new LinkedList<string>();
             Dictionary<string, string> AllPath = BFS(board, startX, startY, endX, endY);
             int x, y;
-            x = endX + 1;
-            y = endY ;
-            Path.AddLast(ConvertTwoPosition(x, y));
-            try
+            int cantFind = 0;
+            int[] u = { 1, 0, -1, 0 };
+            int[] v = { 0, 1, 0, -1 };
+
+            Console.Write(startX + " " + startY);
+            Console.WriteLine();
+            Console.Write(endX + " " + endY);
+            Console.WriteLine();
+            foreach (KeyValuePair<string, string> entry in AllPath)
             {
-                while (true)
-                {
-                    string temp = ConvertTwoPosition(x, y);
-                    string parent_of_each_path = AllPath[temp];
-                    Path.AddLast(parent_of_each_path);
-
-                    x = FirstNumberX(parent_of_each_path);
-                    y = FirstNumberY(parent_of_each_path);
-
-                    if (x == startX && y == endY)
-                        break;
-
-                }
+                // do something with entry.Value or entry.Key
+                Console.Write(entry.Value + " " + entry.Key);
+                Console.WriteLine();
             }
-            catch(Exception e)
+            while (cantFind < 4)
             {
+                x = endX + u[cantFind];
+                y = endY + v[cantFind];
+                Path.Clear();
+                Path.AddLast(ConvertTwoPosition(x, y));
+                try
+                {
+                    while (true)
+                    {
+                        string temp = ConvertTwoPosition(x, y);
+                        string parent_of_each_path = AllPath[temp];
+                        Path.AddLast(parent_of_each_path);
 
-                Console.WriteLine(e.Message);
+                        x = FirstNumberX(parent_of_each_path);
+                        y = FirstNumberY(parent_of_each_path);
+
+                        if (x == startX && y == endY)
+                            return Path;
+
+                    }
+                }
+                catch (Exception e)
+                {
+                    
+                    cantFind++;
+                }
             }
             return Path;
         }

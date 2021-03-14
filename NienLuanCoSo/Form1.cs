@@ -94,11 +94,21 @@ namespace NienLuanCoSo
             {
                 EndPointX = algo.FirstNumberX(target.Name);
                 EndPointY = algo.FirstNumberY(target.Name);
+
                 LinkedList<string> findPath = algo.findPath(board, startPointX, startPointY, EndPointX, EndPointY);
                 foreach (string item in findPath)
                 {
                     Console.Write(item + " ");
                 }
+                //Dictionary<string, string> AllPath = algo.BFS(board, startPointX, startPointY, EndPointX, EndPointY);
+                //foreach (KeyValuePair<string, string> entry in AllPath)
+                //{
+                //    // do something with entry.Value or entry.Key
+                //    Console.Write(entry.Value + " " + entry.Key);
+                //    Console.WriteLine();
+                //}
+                Console.WriteLine();
+
                 MessageBox.Show("da chay gia tri dich");
                 colorPicture = 0;
             }
