@@ -148,7 +148,6 @@ namespace NienLuanCoSo
             int cantFind = 0;
             int[] u = { 1, 0, -1, 0 };
             int[] v = { 0, 1, 0, -1 };
-
             Console.Write(startX + " " + startY);
             Console.WriteLine();
             Console.Write(endX + " " + endY);
@@ -176,14 +175,13 @@ namespace NienLuanCoSo
                         x = FirstNumberX(parent_of_each_path);
                         y = FirstNumberY(parent_of_each_path);
 
-                        if (x == startX && y == endY)
+                        if (x == startX && y == startY)
                             return Path;
 
                     }
                 }
                 catch (Exception e)
                 {
-                    
                     cantFind++;
                 }
             }
