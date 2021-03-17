@@ -24,7 +24,7 @@ namespace NienLuanCoSo
                 int y = ran.Next(0 , 9);
                 if (board[i, y] != 1)
                 {
-                    int getCorlor = ran.Next(0 , 6);
+                    int getCorlor = ran.Next(1 , 6);
                     board[i, y] = getCorlor;
                     box--;
                 }  
@@ -43,7 +43,7 @@ namespace NienLuanCoSo
                 Console.WriteLine();
             }
         }
-        public Hashtable loadImage(int[,] board) {
+        public Hashtable SetImage(int[,] board) {
             Hashtable position = new Hashtable();
             for (int  i = 0;i < 9; i++)
             {
@@ -84,7 +84,13 @@ namespace NienLuanCoSo
 
             return CheckBoard;
         }
-
+        public int[,] doiMauDiemCuoi(string point , int[,] board )
+        {
+            int x = FirstNumberX(point);
+            int y = FirstNumberY(point);
+            board[x, y] = 2;
+            return board;
+        }
         public void reconstructPath(Hashtable path ,int endX , int  endY ,int startX, int startY)
         {
             LinkedList<string> reconstructPath = new LinkedList<string>();
@@ -94,7 +100,7 @@ namespace NienLuanCoSo
             }
 
         }
-
+        
       
         public Dictionary<string, string> BFS(int[,] board, int startX, int startY, int endX, int endY)
         {
@@ -152,12 +158,12 @@ namespace NienLuanCoSo
             Console.WriteLine();
             Console.Write(endX + " " + endY);
             Console.WriteLine();
-            foreach (KeyValuePair<string, string> entry in AllPath)
-            {
-                // do something with entry.Value or entry.Key
-                Console.Write(entry.Value + " " + entry.Key);
-                Console.WriteLine();
-            }
+            //foreach (KeyValuePair<string, string> entry in AllPath)
+            //{
+            //    // do something with entry.Value or entry.Key
+            //    Console.Write(entry.Value + " " + entry.Key);
+            //    Console.WriteLine();
+            //}
             while (cantFind < 4)
             {
                 x = endX + u[cantFind];
@@ -176,8 +182,10 @@ namespace NienLuanCoSo
                         y = FirstNumberY(parent_of_each_path);
 
                         if (x == startX && y == startY)
+                        {
+                            Path.AddFirst(ConvertTwoPosition(endX, endY));
                             return Path;
-
+                        }
                     }
                 }
                 catch (Exception e)

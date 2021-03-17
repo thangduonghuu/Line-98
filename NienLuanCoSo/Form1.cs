@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
+using System.Threading;
 namespace NienLuanCoSo
 {
     
@@ -18,6 +19,7 @@ namespace NienLuanCoSo
         int colorPicture;
         int EndPointX;
         int EndPointY;
+        Hashtable NewBoard;
         int[,] board;
         Algorithms algo = new Algorithms();
         string[] balls = {"",
@@ -30,35 +32,42 @@ namespace NienLuanCoSo
         public Form1()
         {
             InitializeComponent();
+            board = algo.InitBoard();
+            
+            LoadImage(board);
+
+            //algo.doiMauDiemCuoi("A88", board);
+
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
-
-        private void Form1_Load(object sender, EventArgs e)
+        public void setColor(string Point , int color)
+        {
+            foreach (Control c in panel1.Controls)
+            {
+                PictureBox p = (PictureBox)c;
+                if (p.Name == Point)
+                {
+                    Image newImage = Image.FromFile(balls[color]);
+                    p.Image = newImage;
+                }
+            }
+        }
+        private void LoadImage(int[,] board )
         {
             Random ran = new Random();
-
             // init 
-            board = algo.InitBoard();
-           
-            //LinkedList<string> findPath = algo.findPath(board, 5, 5, 0, 0);
-            
-
-            // in tat ca duong di
-            //foreach (string item in findPath)
-            //{
-            //    Console.Write(item + " ");
-            //}
-            //Console.WriteLine();
-
-            //Image newImage = Image.FromFile("E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\brown.png");
-            //do not delete start
             try
             {
-                Hashtable NewBoard = algo.loadImage(board);
+                NewBoard = algo.SetImage(board);
+                foreach (DictionaryEntry pair in NewBoard)
+                {
+                    Console.WriteLine("{0}={1}", pair.Key, pair.Value);
+                }
+
                 foreach (object key in NewBoard.Keys)
                 {
                     foreach (Control c in panel1.Controls)
@@ -69,6 +78,7 @@ namespace NienLuanCoSo
                             int corlor = Int32.Parse(NewBoard[key].ToString());
                             Image newImage = Image.FromFile(balls[corlor]);
                             p.Image = newImage;
+                            
                         }
                     }
                 }
@@ -79,7 +89,7 @@ namespace NienLuanCoSo
             }
             //do not delete start
         }
-        private void Change_value(object sender, EventArgs e)
+        private async void Change_value(object sender, EventArgs e)
         {
             PictureBox target = (PictureBox)sender;
             if (colorPicture == 0)
@@ -87,29 +97,39 @@ namespace NienLuanCoSo
                 startPointX = algo.FirstNumberX(target.Name);
                 startPointY = algo.FirstNumberY(target.Name);
                 colorPicture = board[startPointX, startPointY];
-                
-                MessageBox.Show("da chay gia tri dau");
             }
             else
             {
                 EndPointX = algo.FirstNumberX(target.Name);
                 EndPointY = algo.FirstNumberY(target.Name);
-
+                int tempX = 0;
+                int tempY = 0;
                 LinkedList<string> findPath = algo.findPath(board, startPointX, startPointY, EndPointX, EndPointY);
                 foreach (string item in findPath)
                 {
-                    Console.Write(item + " ");
+
+                    NewBoard.Remove(algo.ConvertTwoPosition(tempX, tempY));
+                    
+                    int x = algo.FirstNumberX(item);
+                    int y = algo.FirstNumberY(item);
+                   
+                    tempX = x;
+                    tempY = y;
+                    //Console.Write(item + " ");
+                    board[x, y] = board[startPointX, startPointY];
+                    await Task.Delay(100);
+                    LoadImage(board);
+                    //NewBoard.Remove(item);
                 }
-                //Dictionary<string, string> AllPath = algo.BFS(board, startPointX, startPointY, EndPointX, EndPointY);
-                //foreach (KeyValuePair<string, string> entry in AllPath)
+                //for (int i = 0; i < 9; i++)
                 //{
-                //    // do something with entry.Value or entry.Key
-                //    Console.Write(entry.Value + " " + entry.Key);
+                //    for (int j = 0; j < 9; j++)
+                //    {
+                //        Console.Write(board[i, j] + " ");
+                //    }
                 //    Console.WriteLine();
                 //}
                 Console.WriteLine();
-
-                MessageBox.Show("da chay gia tri dich");
                 colorPicture = 0;
             }
         }

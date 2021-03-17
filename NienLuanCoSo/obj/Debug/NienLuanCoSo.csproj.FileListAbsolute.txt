@@ -8,3 +8,13 @@ E:\C#\NienLuanCoSo\NienLuanCoSo\obj\Debug\NienLuanCoSo.csproj.GenerateResource.c
 E:\C#\NienLuanCoSo\NienLuanCoSo\obj\Debug\NienLuanCoSo.csproj.CoreCompileInputs.cache
 E:\C#\NienLuanCoSo\NienLuanCoSo\obj\Debug\NienLuanCoSo.exe
 E:\C#\NienLuanCoSo\NienLuanCoSo\obj\Debug\NienLuanCoSo.pdb
+C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\bin\Debug\NienLuanCoSo.exe.config
+C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\bin\Debug\NienLuanCoSo.exe
+C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\bin\Debug\NienLuanCoSo.pdb
+C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoSo.csprojAssemblyReference.cache
+C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoSo.Form1.resources
+C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoSo.Properties.Resources.resources
+C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoSo.csproj.GenerateResource.cache
+C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoSo.csproj.CoreCompileInputs.cache
+C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoSo.exe
+C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoSo.pdb
