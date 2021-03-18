@@ -154,16 +154,6 @@ namespace NienLuanCoSo
             int cantFind = 0;
             int[] u = { 1, 0, -1, 0 };
             int[] v = { 0, 1, 0, -1 };
-            Console.Write(startX + " " + startY);
-            Console.WriteLine();
-            Console.Write(endX + " " + endY);
-            Console.WriteLine();
-            //foreach (KeyValuePair<string, string> entry in AllPath)
-            //{
-            //    // do something with entry.Value or entry.Key
-            //    Console.Write(entry.Value + " " + entry.Key);
-            //    Console.WriteLine();
-            //}
             while (cantFind < 4)
             {
                 x = endX + u[cantFind];
@@ -184,7 +174,7 @@ namespace NienLuanCoSo
                         if (x == startX && y == startY)
                         {
                             Path.AddFirst(ConvertTwoPosition(endX, endY));
-                            return Path;
+                            return PathReverse(Path);
                         }
                     }
                 }
@@ -193,8 +183,19 @@ namespace NienLuanCoSo
                     cantFind++;
                 }
             }
-            return Path;
+            return PathReverse(Path);
         }
+        public LinkedList<string> PathReverse(LinkedList<string> Path)
+        {
+            LinkedList<string> newPath = new LinkedList<string>();
+            foreach (string point in Path)
+            {
+                newPath.AddFirst(point);
+            }
+
+            return newPath;
+        }
+
 
 
         //end test

@@ -63,10 +63,10 @@ namespace NienLuanCoSo
             try
             {
                 NewBoard = algo.SetImage(board);
-                foreach (DictionaryEntry pair in NewBoard)
-                {
-                    Console.WriteLine("{0}={1}", pair.Key, pair.Value);
-                }
+                //foreach (DictionaryEntry pair in NewBoard)
+                //{
+                //    Console.WriteLine("{0}={1}", pair.Key, pair.Value);
+                //}
 
                 foreach (object key in NewBoard.Keys)
                 {
@@ -98,37 +98,42 @@ namespace NienLuanCoSo
                 startPointY = algo.FirstNumberY(target.Name);
                 colorPicture = board[startPointX, startPointY];
             }
-            else
+ 
+            else 
             {
                 EndPointX = algo.FirstNumberX(target.Name);
                 EndPointY = algo.FirstNumberY(target.Name);
                 int tempX = 0;
                 int tempY = 0;
+                
                 LinkedList<string> findPath = algo.findPath(board, startPointX, startPointY, EndPointX, EndPointY);
                 foreach (string item in findPath)
                 {
-
-                    NewBoard.Remove(algo.ConvertTwoPosition(tempX, tempY));
-                    
                     int x = algo.FirstNumberX(item);
                     int y = algo.FirstNumberY(item);
-                   
+                    
                     tempX = x;
                     tempY = y;
-                    //Console.Write(item + " ");
-                    board[x, y] = board[startPointX, startPointY];
-                    await Task.Delay(100);
+
+                    board[x, y] = colorPicture;
                     LoadImage(board);
-                    //NewBoard.Remove(item);
+                    await Task.Delay(100);
+                    foreach (Control c in panel1.Controls)
+                    {
+                        PictureBox p = (PictureBox)c;
+
+                        if (p.Name == algo.ConvertTwoPosition(tempX, tempY))
+                        {
+                            p.Image = null;
+                            if (x != EndPointX || y !=EndPointY ) {
+                                board[tempX, tempY] = 0; 
+                            }
+                        }
+                    }
                 }
-                //for (int i = 0; i < 9; i++)
-                //{
-                //    for (int j = 0; j < 9; j++)
-                //    {
-                //        Console.Write(board[i, j] + " ");
-                //    }
-                //    Console.WriteLine();
-                //}
+                
+                LoadImage(board);
+
                 Console.WriteLine();
                 colorPicture = 0;
             }
