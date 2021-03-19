@@ -20,12 +20,12 @@ namespace NienLuanCoSo
 
             while (box > 75)
             {
-                int i = ran.Next(0 , 9);
+                int x = ran.Next(0 , 9);
                 int y = ran.Next(0 , 9);
-                if (board[i, y] != 1)
+                if (board[x, y] != 1)
                 {
                     int getCorlor = ran.Next(1 , 6);
-                    board[i, y] = getCorlor;
+                    board[x, y] = getCorlor;
                     box--;
                 }  
             }
@@ -43,6 +43,26 @@ namespace NienLuanCoSo
                 Console.WriteLine();
             }
         }
+        public void RandomPointBoard(int[,] board)
+        {
+            int count = 0;
+            Random ran = new Random();
+            while (true)
+            {
+                int x = ran.Next(0, 9);
+                int y = ran.Next(0, 9);
+                if (board[x, y] == 0)
+                {
+                    board[x, y] = ran.Next(1, 6);
+                    count++;
+                }
+                if(count == 3)
+                {
+                    return;
+                }
+            }
+        }
+
         public Hashtable SetImage(int[,] board) {
             Hashtable position = new Hashtable();
             for (int  i = 0;i < 9; i++)
@@ -129,6 +149,7 @@ namespace NienLuanCoSo
                     int yy = y + v[k];
                     if (xx == endX && yy == endY)
                     {
+                        path.Add(ConvertTwoPosition(xx, yy), ConvertTwoPosition(x, y));
                         visited[x, y] = false;
                         return path;
                     }
@@ -150,37 +171,57 @@ namespace NienLuanCoSo
         {
             LinkedList<string> Path = new LinkedList<string>();
             Dictionary<string, string> AllPath = BFS(board, startX, startY, endX, endY);
+            Console.WriteLine(AllPath.Count());
+
             int x, y;
             int cantFind = 0;
             int[] u = { 1, 0, -1, 0 };
             int[] v = { 0, 1, 0, -1 };
-            while (cantFind < 4)
+           
+            if ( (int)Math.Abs(startX - endX + startY - endY) == 1)
             {
-                x = endX + u[cantFind];
-                y = endY + v[cantFind];
-                Path.Clear();
-                Path.AddLast(ConvertTwoPosition(x, y));
-                try
+                Path.AddLast(ConvertTwoPosition(startX, startY));
+                Path.AddLast(ConvertTwoPosition(endX, endY));
+                return Path;
+            }
+            else {
+                while (cantFind < 4)
                 {
-                    while (true)
+
+                    x = endX + u[cantFind];
+                    y = endY + v[cantFind];
+
+                    Path.Clear();
+                    Path.AddLast(ConvertTwoPosition(x, y));
+                    try
                     {
-                        string temp = ConvertTwoPosition(x, y);
-                        string parent_of_each_path = AllPath[temp];
-                        Path.AddLast(parent_of_each_path);
-
-                        x = FirstNumberX(parent_of_each_path);
-                        y = FirstNumberY(parent_of_each_path);
-
-                        if (x == startX && y == startY)
+                        if (x == endX && y == endY)
                         {
-                            Path.AddFirst(ConvertTwoPosition(endX, endY));
-                            return PathReverse(Path);
+                            return Path;
+                        }
+                        else
+                        {
+                            while (true)
+                            {
+                                string temp = ConvertTwoPosition(x, y);
+                                string parent_of_each_path = AllPath[temp];
+                                Path.AddLast(parent_of_each_path);
+
+                                x = FirstNumberX(parent_of_each_path);
+                                y = FirstNumberY(parent_of_each_path);
+
+                                if (x == startX && y == startY)
+                                {
+                                    Path.AddFirst(ConvertTwoPosition(endX, endY));
+                                    return PathReverse(Path);
+                                }
+                            }
                         }
                     }
-                }
-                catch (Exception e)
-                {
-                    cantFind++;
+                    catch (Exception e)
+                    {
+                        cantFind++;
+                    }
                 }
             }
             return PathReverse(Path);
@@ -198,72 +239,7 @@ namespace NienLuanCoSo
 
 
 
-        //end test
-
-        //public int BFS(int[,] board, int startX, int startY, int endX, int endY)
-        //{
-
-        //    int Rows = 9;
-        //    int Columns = 9;
-        //    // board la ma tran cua Rows, va Colums
-        //    /// rq , cq la hang doi cua bai
-        //    LinkedList<string> PathQueue = new LinkedList<string>();
-
-        //    int move_count = 0;
-        //    int node_left_in_layer = 1;
-        //    int Nodes_in_next_layer = 0;
-
-        //    bool reached = false;
-        //    bool[,] visited = ConvertBoardToBool(board);
-
-        //    int[] u = { 1, 0, -1, 0 };
-        //    int[] v = { 0, 1, 0, -1 };
-
-        //    PathQueue.AddLast(ConvertTwoPosition(startX, startY));
-        //    visited[startX, startY] = false;
-
-        //    while (PathQueue.Any())
-        //    {
-        //        int x = FirstNumberX(PathQueue.First());
-        //        int y = FirstNumberY(PathQueue.First());
-
-        //        PathQueue.RemoveFirst();
-
-        //        if (x == endX && y == endY)
-        //        {
-        //            reached = true;
-        //            break;
-        //        }
-        //        for (int i = 0; i < 4; i++)
-        //        {
-        //            int newX = x + u[i];
-        //            int newY = y + v[i];
-
-        //            if (newX < 0 || newY < 0) continue;
-        //            if (newX >= 9 || newY >= 9) continue;
-
-        //            if (visited[newX, newY] == false) continue;
-
-        //            PathQueue.AddLast(ConvertTwoPosition(newX, newY));
-
-        //            visited[newX, newY] = false;
-        //            Nodes_in_next_layer++;
-        //        }
-        //        node_left_in_layer--;
-        //        if (node_left_in_layer == 0)
-        //        {
-        //            node_left_in_layer = Nodes_in_next_layer;
-        //            Nodes_in_next_layer = 0;
-        //            move_count++;
-        //        }
-        //    }
-        //    if (reached)
-        //    {
-        //        return move_count;
-        //    }
-        //    return -1;
-        //}
-
+    
         bool isInside(int i, int j)
         {
             return (i >= 0 && i < 9 && j >= 0 && j < 9);

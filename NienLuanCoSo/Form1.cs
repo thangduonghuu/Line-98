@@ -107,11 +107,12 @@ namespace NienLuanCoSo
                 int tempY = 0;
                 
                 LinkedList<string> findPath = algo.findPath(board, startPointX, startPointY, EndPointX, EndPointY);
+
                 foreach (string item in findPath)
                 {
                     int x = algo.FirstNumberX(item);
                     int y = algo.FirstNumberY(item);
-                    
+
                     tempX = x;
                     tempY = y;
 
@@ -125,16 +126,15 @@ namespace NienLuanCoSo
                         if (p.Name == algo.ConvertTwoPosition(tempX, tempY))
                         {
                             p.Image = null;
-                            if (x != EndPointX || y !=EndPointY ) {
-                                board[tempX, tempY] = 0; 
+                            if (x != EndPointX || y != EndPointY)
+                            {
+                                board[tempX, tempY] = 0;
                             }
                         }
                     }
                 }
-                
+                algo.RandomPointBoard(board);
                 LoadImage(board);
-
-                Console.WriteLine();
                 colorPicture = 0;
             }
         }
