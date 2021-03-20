@@ -56,6 +56,21 @@ namespace NienLuanCoSo
                 }
             }
         }
+        public void ClearPointWhenGetScore(int[,] board, LinkedList<string> ScorePoint)
+        {
+            //foreach (string str in ScorePoint)
+            //{
+                foreach (Control c in panel1.Controls)
+                {
+                    PictureBox p = (PictureBox)c;
+                    if (ScorePoint.Contains(p.Name))
+                    {
+                        p.Image = null;
+                        board[algo.FirstNumberX(p.Name), algo.FirstNumberY(p.Name)] = 0;
+                    }
+                }
+            //}
+        }
         private void LoadImage(int[,] board )
         {
             Random ran = new Random();
@@ -118,7 +133,7 @@ namespace NienLuanCoSo
 
                     board[x, y] = colorPicture;
                     LoadImage(board);
-                    await Task.Delay(100);
+                    await Task.Delay(90);
                     foreach (Control c in panel1.Controls)
                     {
                         PictureBox p = (PictureBox)c;
@@ -133,7 +148,33 @@ namespace NienLuanCoSo
                         }
                     }
                 }
-                algo.RandomPointBoard(board);
+                
+                board[0, 0] = 1;
+                board[0, 1] = 1;
+                board[0, 2] = 1;
+                board[0, 3] = 1;
+                
+                
+                LinkedList<string> ScorePoint = new LinkedList<string>();
+                ScorePoint = algo.ScoreBoard(board, EndPointX, EndPointY, colorPicture);
+                if (ScorePoint.Count() >= 4)
+                {
+                    ScorePoint.AddLast(algo.ConvertTwoPosition( EndPointX, EndPointY));
+                    ClearPointWhenGetScore(board, ScorePoint);
+                    LoadImage(board);
+                }
+                else
+                {
+                    algo.RandomPointBoard(board);
+                }
+                //for (int i = 0; i < 9; i++)
+                //{
+                //    for(int j = 0; j < 9; j++)
+                //    {
+                //        Console.Write(board[i, j] + " ");
+                //    }
+                //    Console.WriteLine();
+                //}
                 LoadImage(board);
                 colorPicture = 0;
             }

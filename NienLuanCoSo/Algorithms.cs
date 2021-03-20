@@ -31,18 +31,7 @@ namespace NienLuanCoSo
             }
             return board;
         }
-        public void logBoard (int[,] board)
-        {
-            bool[,] Convert = ConvertBoardToBool(board);
-            for (int i = 0; i < 9; i++)
-            {
-                for (int j = 0; j < 9; j++)
-                {
-                    Console.Write(Convert[i, j] + " ");
-                }
-                Console.WriteLine();
-            }
-        }
+
         public void RandomPointBoard(int[,] board)
         {
             int count = 0;
@@ -171,14 +160,14 @@ namespace NienLuanCoSo
         {
             LinkedList<string> Path = new LinkedList<string>();
             Dictionary<string, string> AllPath = BFS(board, startX, startY, endX, endY);
-            Console.WriteLine(AllPath.Count());
+        
 
             int x, y;
             int cantFind = 0;
             int[] u = { 1, 0, -1, 0 };
             int[] v = { 0, 1, 0, -1 };
            
-            if ( (int)Math.Abs(startX - endX + startY - endY) == 1)
+            if ( (int)Math.Abs(startX - endX) + Math.Abs(startY - endY) == 1)
             {
                 Path.AddLast(ConvertTwoPosition(startX, startY));
                 Path.AddLast(ConvertTwoPosition(endX, endY));
@@ -236,10 +225,51 @@ namespace NienLuanCoSo
 
             return newPath;
         }
+     
+        public LinkedList<string> ScoreBoard(int[,] board , int pointX, int pointY , int color)
+        {
+            int[] u = { -1, -1, -1, 0, 0 , 1 , 1 , 1};
+            int[] v = { -1, 0, 1, -1, 1, -1, 0, 1 };
+            LinkedList<string> ScorePoint = new LinkedList<string>();
+            
+            for (int i = 0; i < 8; i++)
+            {
+                int tempPointX = pointX;
+                int tempPointY = pointY;
+                while (true)
+                {
+                    tempPointX += u[i];
+                    tempPointY += v[i];
+                    
+                    if (isInside(tempPointX, tempPointY))
+                    {
+                        if (board[tempPointX, tempPointY] == color)
+                        {
+                            ScorePoint.AddLast(ConvertTwoPosition(tempPointX, tempPointY));
+
+                        }
+                        if (board[tempPointX, tempPointY] != color)
+                        {
+                            if (ScorePoint.Count()  > 4)
+                            {
+                                ScorePoint.AddFirst(ConvertTwoPosition(pointX, pointY));
+                                return ScorePoint;
+                            }           
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            
+            return ScorePoint;
+        }
 
 
 
-    
         bool isInside(int i, int j)
         {
             return (i >= 0 && i < 9 && j >= 0 && j < 9);
