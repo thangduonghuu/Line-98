@@ -113,8 +113,7 @@ namespace NienLuanCoSo
                 startPointY = algo.FirstNumberY(target.Name);
                 colorPicture = board[startPointX, startPointY];
             }
- 
-            else 
+            else  
             {
                 EndPointX = algo.FirstNumberX(target.Name);
                 EndPointY = algo.FirstNumberY(target.Name);
@@ -148,12 +147,7 @@ namespace NienLuanCoSo
                         }
                     }
                 }
-                
-                board[0, 0] = 1;
-                board[0, 1] = 1;
-                board[0, 2] = 1;
-                board[0, 3] = 1;
-                
+ 
                 
                 LinkedList<string> ScorePoint = new LinkedList<string>();
                 ScorePoint = algo.ScoreBoard(board, EndPointX, EndPointY, colorPicture);
@@ -161,23 +155,44 @@ namespace NienLuanCoSo
                 {
                     ScorePoint.AddLast(algo.ConvertTwoPosition( EndPointX, EndPointY));
                     ClearPointWhenGetScore(board, ScorePoint);
+                    int Score = ScorePoint.Count() * 5;
+                    foreach (Control c in this.Controls)
+                    {
+                        if(c is TextBox && c.Name == "Score")
+                        {
+                            string TempText = c.Text;
+                            c.Text= c.Text + " +" + Score.ToString();
+                            await Task.Delay(500);
+                            int startScore = 0;
+                            int EndScore = 0;
+                            c.Text = TempText;
+                            if (c.Text != "")
+                            {
+                                startScore = Int32.Parse(c.Text);
+                                EndScore = Score + Int32.Parse(c.Text);
+                            }
+                            else
+                            {
+                               startScore = 0;
+                               EndScore = Score;          
+                            }
+                            for (int i = startScore; i <= EndScore; i++)
+                            {
+                                c.Text = i.ToString();
+                                await Task.Delay(10);
+                            }
+                        }
+                    }
                     LoadImage(board);
                 }
                 else
                 {
                     algo.RandomPointBoard(board);
                 }
-                //for (int i = 0; i < 9; i++)
-                //{
-                //    for(int j = 0; j < 9; j++)
-                //    {
-                //        Console.Write(board[i, j] + " ");
-                //    }
-                //    Console.WriteLine();
-                //}
                 LoadImage(board);
                 colorPicture = 0;
             }
+        
         }
     }
 }

@@ -116,6 +116,8 @@ namespace NienLuanCoSo
             this.A02 = new System.Windows.Forms.PictureBox();
             this.A01 = new System.Windows.Forms.PictureBox();
             this.A00 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.Score = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.A88)).BeginInit();
@@ -210,7 +212,7 @@ namespace NienLuanCoSo
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(722, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(971, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -220,7 +222,7 @@ namespace NienLuanCoSo
             this.newGameToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newGameToolStripMenuItem
@@ -238,7 +240,7 @@ namespace NienLuanCoSo
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // panel1
@@ -1220,11 +1222,33 @@ namespace NienLuanCoSo
             this.A00.TabStop = false;
             this.A00.Click += new System.EventHandler(this.Change_value);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(690, 73);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(135, 36);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Điểm Số ";
+            // 
+            // Score
+            // 
+            this.Score.Enabled = false;
+            this.Score.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Score.Location = new System.Drawing.Point(696, 142);
+            this.Score.Name = "Score";
+            this.Score.ReadOnly = true;
+            this.Score.Size = new System.Drawing.Size(213, 38);
+            this.Score.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(722, 696);
+            this.ClientSize = new System.Drawing.Size(971, 696);
+            this.Controls.Add(this.Score);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -1408,6 +1432,8 @@ namespace NienLuanCoSo
         private System.Windows.Forms.PictureBox A02;
         private System.Windows.Forms.PictureBox A01;
         private System.Windows.Forms.PictureBox A00;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox Score;
     }
 }
 

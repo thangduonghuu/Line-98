@@ -269,7 +269,6 @@ namespace NienLuanCoSo
         }
 
 
-
         bool isInside(int i, int j)
         {
             return (i >= 0 && i < 9 && j >= 0 && j < 9);
