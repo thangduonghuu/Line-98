@@ -113,86 +113,105 @@ namespace NienLuanCoSo
                 startPointY = algo.FirstNumberY(target.Name);
                 colorPicture = board[startPointX, startPointY];
             }
-            else  
+            else if (startPointX == algo.FirstNumberX(target.Name) && startPointY == algo.FirstNumberY(target.Name))
+            {
+                startPointX = 0;
+                startPointY = 0;
+                EndPointX = 0;
+                EndPointY = 0;
+                colorPicture = 0;
+            }
+            else
             {
                 EndPointX = algo.FirstNumberX(target.Name);
                 EndPointY = algo.FirstNumberY(target.Name);
-                int tempX = 0;
-                int tempY = 0;
-                
-                LinkedList<string> findPath = algo.findPath(board, startPointX, startPointY, EndPointX, EndPointY);
 
-                foreach (string item in findPath)
+                if (board[EndPointX, EndPointY] == 0)
                 {
-                    int x = algo.FirstNumberX(item);
-                    int y = algo.FirstNumberY(item);
+                    int tempX = 0;
+                    int tempY = 0;
 
-                    tempX = x;
-                    tempY = y;
+                    LinkedList<string> findPath = algo.findPath(board, startPointX, startPointY, EndPointX, EndPointY);
 
-                    board[x, y] = colorPicture;
-                    LoadImage(board);
-                    await Task.Delay(90);
-                    foreach (Control c in panel1.Controls)
+                    foreach (string item in findPath)
                     {
-                        PictureBox p = (PictureBox)c;
+                        int x = algo.FirstNumberX(item);
+                        int y = algo.FirstNumberY(item);
 
-                        if (p.Name == algo.ConvertTwoPosition(tempX, tempY))
+                        tempX = x;
+                        tempY = y;
+
+                        board[x, y] = colorPicture;
+                        LoadImage(board);
+                        await Task.Delay(90);
+                        foreach (Control c in panel1.Controls)
                         {
-                            p.Image = null;
-                            if (x != EndPointX || y != EndPointY)
+                            PictureBox p = (PictureBox)c;
+
+                            if (p.Name == algo.ConvertTwoPosition(tempX, tempY))
                             {
-                                board[tempX, tempY] = 0;
+                                p.Image = null;
+                                if (x != EndPointX || y != EndPointY)
+                                {
+                                    board[tempX, tempY] = 0;
+                                }
                             }
                         }
                     }
-                }
- 
-                
-                LinkedList<string> ScorePoint = new LinkedList<string>();
-                ScorePoint = algo.ScoreBoard(board, EndPointX, EndPointY, colorPicture);
-                if (ScorePoint.Count() >= 4)
-                {
-                    ScorePoint.AddLast(algo.ConvertTwoPosition( EndPointX, EndPointY));
-                    ClearPointWhenGetScore(board, ScorePoint);
-                    int Score = ScorePoint.Count() * 5;
-                    foreach (Control c in this.Controls)
+                    LinkedList<string> ScorePoint = new LinkedList<string>();
+                    ScorePoint = algo.ScoreBoard(board, EndPointX, EndPointY, colorPicture);
+                    if (ScorePoint.Count() >= 4)
                     {
-                        if(c is TextBox && c.Name == "Score")
+                        ScorePoint.AddLast(algo.ConvertTwoPosition(EndPointX, EndPointY));
+                        ClearPointWhenGetScore(board, ScorePoint);
+                        int Score = ScorePoint.Count() * 5;
+                        foreach (Control c in this.Controls)
                         {
-                            string TempText = c.Text;
-                            c.Text= c.Text + " +" + Score.ToString();
-                            await Task.Delay(500);
-                            int startScore = 0;
-                            int EndScore = 0;
-                            c.Text = TempText;
-                            if (c.Text != "")
+                            if (c is TextBox && c.Name == "Score")
                             {
-                                startScore = Int32.Parse(c.Text);
-                                EndScore = Score + Int32.Parse(c.Text);
-                            }
-                            else
-                            {
-                               startScore = 0;
-                               EndScore = Score;          
-                            }
-                            for (int i = startScore; i <= EndScore; i++)
-                            {
-                                c.Text = i.ToString();
-                                await Task.Delay(10);
+                                string TempText = c.Text;
+                                c.Text = c.Text + " +" + Score.ToString();
+                                await Task.Delay(500);
+                                int startScore = 0;
+                                int EndScore = 0;
+                                c.Text = TempText;
+                                if (c.Text != "")
+                                {
+                                    startScore = Int32.Parse(c.Text);
+                                    EndScore = Score + Int32.Parse(c.Text);
+                                }
+                                else
+                                {
+                                    startScore = 0;
+                                    EndScore = Score;
+                                }
+                                for (int i = startScore; i <= EndScore; i++)
+                                {
+                                    c.Text = i.ToString();
+                                    await Task.Delay(10);
+                                }
                             }
                         }
+                        LoadImage(board);
+                    }
+                    else
+                    {
+                        algo.RandomPointBoard(board);
                     }
                     LoadImage(board);
+                    colorPicture = 0;
+                  
                 }
                 else
                 {
-                    algo.RandomPointBoard(board);
+                    startPointX = 0;
+                    startPointY = 0;
+                    EndPointX = 0;
+                    colorPicture = 0;
+                    EndPointY = 0;
                 }
-                LoadImage(board);
-                colorPicture = 0;
+
             }
-        
         }
     }
 }
