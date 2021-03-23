@@ -207,7 +207,7 @@ namespace NienLuanCoSo
                             }
                         }
                     }
-                    catch (Exception e)
+                    catch
                     {
                         cantFind++;
                     }

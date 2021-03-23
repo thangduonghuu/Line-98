@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Drawing.Drawing2D;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -58,8 +58,7 @@ namespace NienLuanCoSo
         }
         public void ClearPointWhenGetScore(int[,] board, LinkedList<string> ScorePoint)
         {
-            //foreach (string str in ScorePoint)
-            //{
+            
                 foreach (Control c in panel1.Controls)
                 {
                     PictureBox p = (PictureBox)c;
@@ -69,7 +68,7 @@ namespace NienLuanCoSo
                         board[algo.FirstNumberX(p.Name), algo.FirstNumberY(p.Name)] = 0;
                     }
                 }
-            //}
+           
         }
         private void LoadImage(int[,] board )
         {
@@ -78,11 +77,6 @@ namespace NienLuanCoSo
             try
             {
                 NewBoard = algo.SetImage(board);
-                //foreach (DictionaryEntry pair in NewBoard)
-                //{
-                //    Console.WriteLine("{0}={1}", pair.Key, pair.Value);
-                //}
-
                 foreach (object key in NewBoard.Keys)
                 {
                     foreach (Control c in panel1.Controls)
@@ -107,14 +101,23 @@ namespace NienLuanCoSo
         private async void Change_value(object sender, EventArgs e)
         {
             PictureBox target = (PictureBox)sender;
+
             if (colorPicture == 0)
             {
+    
                 startPointX = algo.FirstNumberX(target.Name);
                 startPointY = algo.FirstNumberY(target.Name);
                 colorPicture = board[startPointX, startPointY];
+                //Bitmap new_image = new Bitmap(10, 10);
+                //Graphics g = Graphics.FromImage((Image)new_image);
+                //g.InterpolationMode = InterpolationMode.Bilinear;
+                //g.DrawImage(target.Image, 0, 0, 10, 10);
+
+                //target.Image = new_image;
             }
             else if (startPointX == algo.FirstNumberX(target.Name) && startPointY == algo.FirstNumberY(target.Name))
             {
+
                 startPointX = 0;
                 startPointY = 0;
                 EndPointX = 0;
@@ -123,6 +126,7 @@ namespace NienLuanCoSo
             }
             else
             {
+
                 EndPointX = algo.FirstNumberX(target.Name);
                 EndPointY = algo.FirstNumberY(target.Name);
 
@@ -210,8 +214,34 @@ namespace NienLuanCoSo
                     colorPicture = 0;
                     EndPointY = 0;
                 }
-
+             
             }
+        }
+
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    board[i, j] = 0;
+                }
+            }
+            foreach (Control c in panel1.Controls)
+            {
+                PictureBox p = (PictureBox)c;
+                p.Image = null;
+            }
+     
+            LoadImage(board);
+            board = algo.InitBoard();
+
+            LoadImage(board);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
