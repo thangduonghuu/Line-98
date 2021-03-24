@@ -23,11 +23,17 @@ namespace NienLuanCoSo
         int[,] board;
         Algorithms algo = new Algorithms();
         string[] balls = {"",
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\brown.png" ,
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\green.jpg",
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\blue.jpg",
+            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\yellow.png" ,
+            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\pink.png",
+            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\blue.png",
+            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\green.png",
             "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\red.png",
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\yellow.png"
+           
+            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d1 (2).gif",
+            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d2.gif",
+            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d3.gif",
+            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d4.gif",
+            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d5.gif",
         };
         public Form1()
         {
@@ -35,9 +41,6 @@ namespace NienLuanCoSo
             board = algo.InitBoard();
             
             LoadImage(board);
-
-            //algo.doiMauDiemCuoi("A88", board);
-
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -87,7 +90,6 @@ namespace NienLuanCoSo
                             int corlor = Int32.Parse(NewBoard[key].ToString());
                             Image newImage = Image.FromFile(balls[corlor]);
                             p.Image = newImage;
-                            
                         }
                     }
                 }
@@ -108,12 +110,10 @@ namespace NienLuanCoSo
                 startPointX = algo.FirstNumberX(target.Name);
                 startPointY = algo.FirstNumberY(target.Name);
                 colorPicture = board[startPointX, startPointY];
-                //Bitmap new_image = new Bitmap(10, 10);
-                //Graphics g = Graphics.FromImage((Image)new_image);
-                //g.InterpolationMode = InterpolationMode.Bilinear;
-                //g.DrawImage(target.Image, 0, 0, 10, 10);
+                if (colorPicture !=0 ) {
+                    target.Image = Image.FromFile(balls[colorPicture + 5]);
+                }
 
-                //target.Image = new_image;
             }
             else if (startPointX == algo.FirstNumberX(target.Name) && startPointY == algo.FirstNumberY(target.Name))
             {
@@ -126,7 +126,6 @@ namespace NienLuanCoSo
             }
             else
             {
-
                 EndPointX = algo.FirstNumberX(target.Name);
                 EndPointY = algo.FirstNumberY(target.Name);
 
@@ -147,7 +146,7 @@ namespace NienLuanCoSo
 
                         board[x, y] = colorPicture;
                         LoadImage(board);
-                        await Task.Delay(90);
+                        await Task.Delay(50);
                         foreach (Control c in panel1.Controls)
                         {
                             PictureBox p = (PictureBox)c;
@@ -206,13 +205,24 @@ namespace NienLuanCoSo
                     colorPicture = 0;
                   
                 }
-                else
+                else if (board[EndPointX, EndPointY] > 0)
                 {
-                    startPointX = 0;
-                    startPointY = 0;
+                    Console.WriteLine(startPointX + " " + startPointY);
+                    foreach (Control c in panel1.Controls)
+                    {
+                        PictureBox p = (PictureBox)c;
+                        if(p.Name == algo.ConvertTwoPosition(startPointX , startPointY))
+                        {
+                            p.Image = Image.FromFile(balls[colorPicture]);
+                            target.Image = Image.FromFile(balls[board[EndPointX, EndPointY] + 5]);
+                        }
+                    }
+                    colorPicture = board[EndPointX, EndPointY];
+                    startPointX = EndPointX ;
+                    startPointY = EndPointY;
                     EndPointX = 0;
-                    colorPicture = 0;
                     EndPointY = 0;
+
                 }
              
             }
@@ -241,6 +251,13 @@ namespace NienLuanCoSo
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            foreach(Control c in this.Controls)
+            {
+                if(c is TextBox && c.Name == "Score")
+                {
+                    c.Text = "0";
+                }
+            }
             this.Close();
         }
     }

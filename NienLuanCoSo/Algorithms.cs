@@ -231,7 +231,7 @@ namespace NienLuanCoSo
             int[] u = { -1, -1, -1, 0, 0 , 1 , 1 , 1};
             int[] v = { -1, 0, 1, -1, 1, -1, 0, 1 };
             LinkedList<string> ScorePoint = new LinkedList<string>();
-            
+            LinkedList<string> finnalScorePoint = new LinkedList<string>();
             for (int i = 0; i < 8; i++)
             {
                 int tempPointX = pointX;
@@ -250,12 +250,14 @@ namespace NienLuanCoSo
                         }
                         if (board[tempPointX, tempPointY] != color)
                         {
-                            if (ScorePoint.Count()  > 4)
+                            if (ScorePoint.Count() > 4)
                             {
                                 ScorePoint.AddFirst(ConvertTwoPosition(pointX, pointY));
+                                
                                 return ScorePoint;
-                            }           
-                                break;
+                            }
+                            //ScorePoint.Clear();
+                            break;
                         }
                     }
                     else
