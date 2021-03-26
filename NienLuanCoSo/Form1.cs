@@ -133,7 +133,7 @@ namespace NienLuanCoSo
                 {
                     int tempX = 0;
                     int tempY = 0;
-
+                    bool CreatePoint = false;
                     LinkedList<string> findPath = algo.findPath(board, startPointX, startPointY, EndPointX, EndPointY);
                     if (findPath.Count() > 1)
                     {
@@ -162,6 +162,7 @@ namespace NienLuanCoSo
                                 }
                             }
                         }
+                        CreatePoint = true;
                     }
                     LinkedList<string> ScorePoint = new LinkedList<string>();
                     ScorePoint = algo.ScoreBoard(board, EndPointX, EndPointY, colorPicture);
@@ -201,7 +202,10 @@ namespace NienLuanCoSo
                     }
                     else
                     {
-                        algo.RandomPointBoard(board);
+                        if (CreatePoint) { 
+                            algo.RandomPointBoard(board);
+                            CreatePoint = false;
+                        }
                     }
                     LoadImage(board);
                     colorPicture = 0;
