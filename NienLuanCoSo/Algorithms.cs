@@ -100,15 +100,7 @@ namespace NienLuanCoSo
             board[x, y] = 2;
             return board;
         }
-        public void reconstructPath(Hashtable path ,int endX , int  endY ,int startX, int startY)
-        {
-            LinkedList<string> reconstructPath = new LinkedList<string>();
-            foreach (DictionaryEntry item in path)
-            {
-                Console.WriteLine(item.Key + "\t" + item.Value);
-            }
 
-        }
         
       
         public Dictionary<string, string> BFS(int[,] board, int startX, int startY, int endX, int endY)
@@ -213,6 +205,8 @@ namespace NienLuanCoSo
                     }
                 }
             }
+            Path.Clear();
+            Path.AddLast(ConvertTwoPosition(startX, startY));
             return PathReverse(Path);
         }
         public LinkedList<string> PathReverse(LinkedList<string> Path)

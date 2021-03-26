@@ -29,7 +29,7 @@ namespace NienLuanCoSo
             "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\green.png",
             "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\red.png",
            
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d1 (2).gif",
+            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d1.gif",
             "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d2.gif",
             "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d3.gif",
             "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d4.gif",
@@ -135,28 +135,30 @@ namespace NienLuanCoSo
                     int tempY = 0;
 
                     LinkedList<string> findPath = algo.findPath(board, startPointX, startPointY, EndPointX, EndPointY);
-
-                    foreach (string item in findPath)
+                    if (findPath.Count() > 1)
                     {
-                        int x = algo.FirstNumberX(item);
-                        int y = algo.FirstNumberY(item);
-
-                        tempX = x;
-                        tempY = y;
-
-                        board[x, y] = colorPicture;
-                        LoadImage(board);
-                        await Task.Delay(50);
-                        foreach (Control c in panel1.Controls)
+                        foreach (string item in findPath)
                         {
-                            PictureBox p = (PictureBox)c;
+                            int x = algo.FirstNumberX(item);
+                            int y = algo.FirstNumberY(item);
 
-                            if (p.Name == algo.ConvertTwoPosition(tempX, tempY))
+                            tempX = x;
+                            tempY = y;
+
+                            board[x, y] = colorPicture;
+                            LoadImage(board);
+                            await Task.Delay(50);
+                            foreach (Control c in panel1.Controls)
                             {
-                                p.Image = null;
-                                if (x != EndPointX || y != EndPointY)
+                                PictureBox p = (PictureBox)c;
+
+                                if (p.Name == algo.ConvertTwoPosition(tempX, tempY))
                                 {
-                                    board[tempX, tempY] = 0;
+                                    p.Image = null;
+                                    if (x != EndPointX || y != EndPointY)
+                                    {
+                                        board[tempX, tempY] = 0;
+                                    }
                                 }
                             }
                         }
@@ -207,7 +209,7 @@ namespace NienLuanCoSo
                 }
                 else if (board[EndPointX, EndPointY] > 0)
                 {
-                    Console.WriteLine(startPointX + " " + startPointY);
+
                     foreach (Control c in panel1.Controls)
                     {
                         PictureBox p = (PictureBox)c;
