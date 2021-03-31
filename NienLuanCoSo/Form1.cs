@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
 using System.Threading;
+using System.IO;
 namespace NienLuanCoSo
 {
     
@@ -39,26 +40,34 @@ namespace NienLuanCoSo
         {
             InitializeComponent();
             board = algo.InitBoard();
-            
             LoadImage(board);
+            GetNewHighScore();
         }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        public void GetNewHighScore()
         {
-
-        }
-        public void setColor(string Point , int color)
-        {
-            foreach (Control c in panel1.Controls)
+            int counter = 0;
+            string line;
+            string FilePath = @"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\NienLuanCoSo\bin\Debug\HighScoce.txt";
+            System.IO.StreamReader file =  new System.IO.StreamReader(@"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\NienLuanCoSo\bin\Debug\HighScoce.txt");
+            List<string> Lines = new List<string>();
+            while ((line = file.ReadLine()) != null)
             {
-                PictureBox p = (PictureBox)c;
-                if (p.Name == Point)
+                Lines.Add(line);
+            }
+            foreach (Control c in this.Controls)
+            {
+                if(c.Name == "TableHighScore")
                 {
-                    Image newImage = Image.FromFile(balls[color]);
-                    p.Image = newImage;
+                    foreach (string eachline in Lines)
+                    {
+                        TextBox textBox1 = new TextBox();
+                        textBox1.Text = eachline;
+                    }
                 }
             }
+            file.Close();
         }
+  
         public void ClearPointWhenGetScore(int[,] board, LinkedList<string> ScorePoint)
         {
             
@@ -76,7 +85,7 @@ namespace NienLuanCoSo
         private void LoadImage(int[,] board )
         {
             Random ran = new Random();
-            // init 
+           
             try
             {
                 NewBoard = algo.SetImage(board);
@@ -106,7 +115,6 @@ namespace NienLuanCoSo
 
             if (colorPicture == 0)
             {
-    
                 startPointX = algo.FirstNumberX(target.Name);
                 startPointY = algo.FirstNumberY(target.Name);
                 colorPicture = board[startPointX, startPointY];
@@ -126,6 +134,14 @@ namespace NienLuanCoSo
             }
             else
             {
+                foreach (Control c in this.Controls)
+                {
+                    if(c is Panel)
+                    {
+                        c.Enabled = false;
+                    }
+
+                }
                 EndPointX = algo.FirstNumberX(target.Name);
                 EndPointY = algo.FirstNumberY(target.Name);
 
@@ -134,6 +150,7 @@ namespace NienLuanCoSo
                     int tempX = 0;
                     int tempY = 0;
                     bool CreatePoint = false;
+                    
                     LinkedList<string> findPath = algo.findPath(board, startPointX, startPointY, EndPointX, EndPointY);
                     if (findPath.Count() > 1)
                     {
@@ -148,6 +165,7 @@ namespace NienLuanCoSo
                             board[x, y] = colorPicture;
                             LoadImage(board);
                             await Task.Delay(50);
+                            
                             foreach (Control c in panel1.Controls)
                             {
                                 PictureBox p = (PictureBox)c;
@@ -202,7 +220,8 @@ namespace NienLuanCoSo
                     }
                     else
                     {
-                        if (CreatePoint) { 
+                        if (CreatePoint) 
+                        { 
                             algo.RandomPointBoard(board);
                             CreatePoint = false;
                         }
@@ -230,7 +249,13 @@ namespace NienLuanCoSo
                     EndPointY = 0;
 
                 }
-             
+                foreach (Control c in this.Controls)
+                {
+                    if (c is Panel)
+                    {
+                        c.Enabled = true;
+                    }
+                }
             }
         }
 
@@ -241,6 +266,13 @@ namespace NienLuanCoSo
                 for (int j = 0; j < 9; j++)
                 {
                     board[i, j] = 0;
+                }
+            }
+            foreach (Control c in this.Controls)
+            {
+                if (c is TextBox && c.Name == "Score")
+                {
+                    c.Text = "0";
                 }
             }
             foreach (Control c in panel1.Controls)
@@ -257,13 +289,7 @@ namespace NienLuanCoSo
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach(Control c in this.Controls)
-            {
-                if(c is TextBox && c.Name == "Score")
-                {
-                    c.Text = "0";
-                }
-            }
+          
             this.Close();
         }
     }

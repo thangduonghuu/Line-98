@@ -31,11 +31,31 @@ namespace NienLuanCoSo
             }
             return board;
         }
+        public int CheckgameOver(int[,] board)
+        {
+            int count = 0;
+            for(int i = 0; i< 9; i++)
+            {
+                for(int j = 0; j < 9; j++)
+                {
+                    if (board[i, j]!=0)
+                    {
+                        count++;
+                    }
+                }
+            }
+            return count;
+        }
+        
 
         public void RandomPointBoard(int[,] board)
         {
             int count = 0;
             Random ran = new Random();
+            if(CheckgameOver(board) < 3)
+            {
+                return;
+            }
             while (true)
             {
                 int x = ran.Next(0, 9);
@@ -219,7 +239,37 @@ namespace NienLuanCoSo
 
             return newPath;
         }
-     
+        public LinkedList<string> CheckBehind(int[,] board,int PointX , int PointY , int i , int j , int color)
+        {
+            LinkedList<string> checkBehind = new LinkedList<string>();
+
+            int tempPointX = PointX;
+            int tempPointY = PointY;
+            while (true)
+            {
+                
+                tempPointX += i * -1;
+                tempPointY += j * -1;
+                if (isInside(tempPointX, tempPointY))
+                {
+                    if (board[tempPointX, tempPointY] == color)
+                    {
+                        checkBehind.AddLast(ConvertTwoPosition(tempPointX, tempPointY));
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return checkBehind;
+        }
+
+
         public LinkedList<string> ScoreBoard(int[,] board , int pointX, int pointY , int color)
         {
             int[] u = { -1, -1, -1, 0, 0 , 1 , 1 , 1};
@@ -232,25 +282,34 @@ namespace NienLuanCoSo
                 int tempPointY = pointY;
                 while (true)
                 {
+                    
                     tempPointX += u[i];
                     tempPointY += v[i];
-                    
                     if (isInside(tempPointX, tempPointY))
                     {
                         if (board[tempPointX, tempPointY] == color)
                         {
                             ScorePoint.AddLast(ConvertTwoPosition(tempPointX, tempPointY));
-
                         }
-                        if (board[tempPointX, tempPointY] != color)
+                        else if (board[tempPointX, tempPointY] != color)
                         {
-                            if (ScorePoint.Count() > 4)
+                            LinkedList<string> checkBehind = CheckBehind(board, pointX, pointY, u[i], v[i], color);
+                                // checkBehind
+                            if(checkBehind.Count() + ScorePoint.Count() >= 4)
                             {
-                                ScorePoint.AddFirst(ConvertTwoPosition(pointX, pointY));
-                                
-                                return ScorePoint;
+                               foreach (string str in ScorePoint)
+                               {
+                                    if (finnalScorePoint.Contains(str) == false) 
+                                        finnalScorePoint.AddLast(str);
+                               }
+                               foreach (string str in checkBehind)
+                               {
+                                    if (finnalScorePoint.Contains(str) == false)
+                                        finnalScorePoint.AddLast(str);
+                               }
+                                break;  
                             }
-                            //ScorePoint.Clear();
+                            ScorePoint.Clear();
                             break;
                         }
                     }
@@ -260,8 +319,7 @@ namespace NienLuanCoSo
                     }
                 }
             }
-            
-            return ScorePoint;
+            return finnalScorePoint;
         }
 
 

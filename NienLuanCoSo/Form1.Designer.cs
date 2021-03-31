@@ -118,6 +118,8 @@ namespace NienLuanCoSo
             this.A00 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Score = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.TableHighScore = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.A88)).BeginInit();
@@ -228,14 +230,14 @@ namespace NienLuanCoSo
             // newGameToolStripMenuItem
             // 
             this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
-            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.newGameToolStripMenuItem.Text = "New Game";
             this.newGameToolStripMenuItem.Click += new System.EventHandler(this.newGameToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -1244,11 +1246,30 @@ namespace NienLuanCoSo
             this.Score.Size = new System.Drawing.Size(213, 38);
             this.Score.TabIndex = 3;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(690, 206);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(155, 32);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "High Score";
+            // 
+            // TableHighScore
+            // 
+            this.TableHighScore.Location = new System.Drawing.Point(702, 270);
+            this.TableHighScore.Name = "TableHighScore";
+            this.TableHighScore.Size = new System.Drawing.Size(206, 220);
+            this.TableHighScore.TabIndex = 5;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(971, 696);
+            this.Controls.Add(this.TableHighScore);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.Score);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
@@ -1436,6 +1457,8 @@ namespace NienLuanCoSo
         private System.Windows.Forms.PictureBox A00;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox Score;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel TableHighScore;
     }
 }
 
