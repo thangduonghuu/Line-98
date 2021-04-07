@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing.Drawing2D;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,29 +42,45 @@ namespace NienLuanCoSo
             InitializeComponent();
             board = algo.InitBoard();
             LoadImage(board);
-            GetNewHighScore();
+            //GetNewHighScore();
         }
         public void GetNewHighScore()
         {
             int counter = 0;
             string line;
+            // Add this textbox to form
             string FilePath = @"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\NienLuanCoSo\bin\Debug\HighScoce.txt";
             System.IO.StreamReader file =  new System.IO.StreamReader(@"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\NienLuanCoSo\bin\Debug\HighScoce.txt");
             List<string> Lines = new List<string>();
+            int count = 0;
             while ((line = file.ReadLine()) != null)
             {
                 Lines.Add(line);
-            }
-            foreach (Control c in this.Controls)
+            } 
+            foreach (string eachline in Lines)
             {
-                if(c.Name == "TableHighScore")
-                {
-                    foreach (string eachline in Lines)
-                    {
-                        TextBox textBox1 = new TextBox();
-                        textBox1.Text = eachline;
-                    }
-                }
+                Console.WriteLine("hello");
+                Button Mybutton = new Button();
+                Mybutton.Location = new Point(169, 44);
+                Mybutton.Left = 530;
+                Mybutton.Top = 230 + count * 50;
+                Mybutton.Text = "Submit";
+                Mybutton.AutoSize = true;
+                Mybutton.BackColor = Color.LightBlue;
+                Mybutton.Padding = new Padding(6);
+                Mybutton.Font = new Font("French Script MT", 18);
+                //TextBox Mytextbox = new TextBox();
+                //Mytextbox.Height = 40;
+                //Mytextbox.Width = 180;
+                //Mytextbox.Font = new Font(Mytextbox.Font.FontFamily, 15);
+                //Mytextbox.AutoSize = true;
+                //Mytextbox.Name = "text_box" + count;
+                //Mytextbox.Text = eachline;
+                //Mytextbox.Enabled = false;
+                //Mytextbox.Left = 530;
+                //Mytextbox.Top = 230 + count * 50;
+                this.Controls.Add(Mybutton);
+                count++;
             }
             file.Close();
         }
@@ -193,6 +210,9 @@ namespace NienLuanCoSo
                         {
                             if (c is TextBox && c.Name == "Score")
                             {
+                                PrivateFontCollection pfc = new PrivateFontCollection();
+                                pfc.AddFontFile(@"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\cursed-timer-ulil-font\CursedTimerUlil-Aznm.ttf");
+                                c.Font = new Font(pfc.Families[0], 16, FontStyle.Regular);
                                 string TempText = c.Text;
                                 c.Text = c.Text + " +" + Score.ToString();
                                 await Task.Delay(500);
@@ -289,8 +309,12 @@ namespace NienLuanCoSo
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-          
             this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
