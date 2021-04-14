@@ -23,6 +23,9 @@ namespace NienLuanCoSo
         int EndPointY;
         Hashtable NewBoard;
         int[,] board;
+        int[,] UndoBoard;
+        Boolean canUndo = false;
+        String undoPoint;
         Algorithms algo = new Algorithms();
         string[] balls = {"",
             "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\yellow.png" ,
@@ -84,7 +87,7 @@ namespace NienLuanCoSo
             }
             file.Close();
         }
-  
+        
         public void ClearPointWhenGetScore(int[,] board, LinkedList<string> ScorePoint)
         {
             
@@ -102,7 +105,7 @@ namespace NienLuanCoSo
         private void LoadImage(int[,] board )
         {
             Random ran = new Random();
-           
+         
             try
             {
                 NewBoard = algo.SetImage(board);
@@ -124,14 +127,26 @@ namespace NienLuanCoSo
             {
 
             }
-            //do not delete start
+            
         }
         private async void Change_value(object sender, EventArgs e)
         {
             PictureBox target = (PictureBox)sender;
-
+            //UndoBoard = board;
+ 
             if (colorPicture == 0)
             {
+                //UndoBoard = board;
+               
+                    UndoBoard = (int[,])board.Clone();
+                    
+                foreach (Control c in this.Controls)
+                {
+                    if (c is TextBox && c.Name == "Score")
+                    {
+                        undoPoint = c.Text;
+                    }
+                }
                 startPointX = algo.FirstNumberX(target.Name);
                 startPointY = algo.FirstNumberY(target.Name);
                 colorPicture = board[startPointX, startPointY];
@@ -142,7 +157,6 @@ namespace NienLuanCoSo
             }
             else if (startPointX == algo.FirstNumberX(target.Name) && startPointY == algo.FirstNumberY(target.Name))
             {
-
                 startPointX = 0;
                 startPointY = 0;
                 EndPointX = 0;
@@ -157,7 +171,6 @@ namespace NienLuanCoSo
                     {
                         c.Enabled = false;
                     }
-
                 }
                 EndPointX = algo.FirstNumberX(target.Name);
                 EndPointY = algo.FirstNumberY(target.Name);
@@ -178,7 +191,7 @@ namespace NienLuanCoSo
 
                             tempX = x;
                             tempY = y;
-
+                          
                             board[x, y] = colorPicture;
                             LoadImage(board);
                             await Task.Delay(50);
@@ -274,8 +287,10 @@ namespace NienLuanCoSo
                     if (c is Panel)
                     {
                         c.Enabled = true;
+                        
                     }
                 }
+                canUndo = true;
             }
         }
 
@@ -311,10 +326,25 @@ namespace NienLuanCoSo
         {
             this.Close();
         }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void UndoStep(object sender, EventArgs e)
         {
-
+            if (canUndo)
+            {
+                foreach (Control c in this.Controls)
+                {
+                    if (c is TextBox && c.Name == "Score")
+                    {
+                        c.Text = undoPoint;
+                    }
+                }
+                foreach (Control c in panel1.Controls)
+                {
+                    PictureBox p = (PictureBox)c;
+                    p.Image = null;
+                }
+                LoadImage(UndoBoard);
+                board = (int[,])UndoBoard.Clone();
+            }
         }
     }
 }
