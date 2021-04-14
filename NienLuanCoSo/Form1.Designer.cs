@@ -1255,10 +1255,11 @@ namespace NienLuanCoSo
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(696, 205);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(203, 44);
+            this.button1.Size = new System.Drawing.Size(213, 44);
             this.button1.TabIndex = 5;
-            this.button1.Text = "LeaderBoard";
+            this.button1.Text = "Leader Board";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.showLeaderBoard);
             // 
             // button2
             // 
@@ -1266,7 +1267,7 @@ namespace NienLuanCoSo
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Location = new System.Drawing.Point(696, 275);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(203, 44);
+            this.button2.Size = new System.Drawing.Size(213, 44);
             this.button2.TabIndex = 6;
             this.button2.Text = "Undo";
             this.button2.UseVisualStyleBackColor = false;

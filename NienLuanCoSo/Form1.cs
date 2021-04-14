@@ -27,67 +27,30 @@ namespace NienLuanCoSo
         Boolean canUndo = false;
         String undoPoint;
         Algorithms algo = new Algorithms();
-        string[] balls = {"",
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\yellow.png" ,
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\pink.png",
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\blue.png",
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\green.png",
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\red.png",
-           
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d1.gif",
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d2.gif",
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d3.gif",
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d4.gif",
-            "E:\\C#\\NienLuanCoSo\\NienLuanCoSo\\Resources\\d5.gif",
+
+        Image[] images = { null,
+        (Image)Properties.Resources.yellow,
+        (Image)Properties.Resources.pink ,
+        (Image)Properties.Resources.blue ,
+        (Image)Properties.Resources.green ,
+        (Image)Properties.Resources.red ,
+
+        (Image)Properties.Resources.d1 ,
+        (Image)Properties.Resources.d2 ,
+        (Image)Properties.Resources.d3 ,
+        (Image)Properties.Resources.d4 ,
+        (Image)Properties.Resources.d5 ,
+
         };
         public Form1()
         {
             InitializeComponent();
             board = algo.InitBoard();
             LoadImage(board);
+            //Console.WriteLine(Properties.Resources.yellow.ToString());
             //GetNewHighScore();
         }
-        public void GetNewHighScore()
-        {
-            int counter = 0;
-            string line;
-            // Add this textbox to form
-            string FilePath = @"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\NienLuanCoSo\bin\Debug\HighScoce.txt";
-            System.IO.StreamReader file =  new System.IO.StreamReader(@"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\NienLuanCoSo\bin\Debug\HighScoce.txt");
-            List<string> Lines = new List<string>();
-            int count = 0;
-            while ((line = file.ReadLine()) != null)
-            {
-                Lines.Add(line);
-            } 
-            foreach (string eachline in Lines)
-            {
-                Console.WriteLine("hello");
-                Button Mybutton = new Button();
-                Mybutton.Location = new Point(169, 44);
-                Mybutton.Left = 530;
-                Mybutton.Top = 230 + count * 50;
-                Mybutton.Text = "Submit";
-                Mybutton.AutoSize = true;
-                Mybutton.BackColor = Color.LightBlue;
-                Mybutton.Padding = new Padding(6);
-                Mybutton.Font = new Font("French Script MT", 18);
-                //TextBox Mytextbox = new TextBox();
-                //Mytextbox.Height = 40;
-                //Mytextbox.Width = 180;
-                //Mytextbox.Font = new Font(Mytextbox.Font.FontFamily, 15);
-                //Mytextbox.AutoSize = true;
-                //Mytextbox.Name = "text_box" + count;
-                //Mytextbox.Text = eachline;
-                //Mytextbox.Enabled = false;
-                //Mytextbox.Left = 530;
-                //Mytextbox.Top = 230 + count * 50;
-                this.Controls.Add(Mybutton);
-                count++;
-            }
-            file.Close();
-        }
-        
+  
         public void ClearPointWhenGetScore(int[,] board, LinkedList<string> ScorePoint)
         {
             
@@ -117,7 +80,8 @@ namespace NienLuanCoSo
                         if (p.Name == key.ToString())
                         {
                             int corlor = Int32.Parse(NewBoard[key].ToString());
-                            Image newImage = Image.FromFile(balls[corlor]);
+                            //Image newImage = Image.FromFile(balls[corlor]);
+                            Image newImage = images[corlor];
                             p.Image = newImage;
                         }
                     }
@@ -151,7 +115,8 @@ namespace NienLuanCoSo
                 startPointY = algo.FirstNumberY(target.Name);
                 colorPicture = board[startPointX, startPointY];
                 if (colorPicture !=0 ) {
-                    target.Image = Image.FromFile(balls[colorPicture + 5]);
+                    //target.Image = Image.FromFile(balls[colorPicture + 5]);
+                    target.Image = images[colorPicture + 5];
                 }
 
             }
@@ -271,8 +236,10 @@ namespace NienLuanCoSo
                         PictureBox p = (PictureBox)c;
                         if(p.Name == algo.ConvertTwoPosition(startPointX , startPointY))
                         {
-                            p.Image = Image.FromFile(balls[colorPicture]);
-                            target.Image = Image.FromFile(balls[board[EndPointX, EndPointY] + 5]);
+                            //p.Image = Image.FromFile(balls[colorPicture]);
+                            p.Image = images[colorPicture];
+                            //target.Image = Image.board[EndPointX, EndPointY] + 5]);
+                            target.Image = images[board[EndPointX, EndPointY] + 5];
                         }
                     }
                     colorPicture = board[EndPointX, EndPointY];
@@ -345,6 +312,13 @@ namespace NienLuanCoSo
                 LoadImage(UndoBoard);
                 board = (int[,])UndoBoard.Clone();
             }
+        }
+
+        private void showLeaderBoard(object sender, EventArgs e)
+        {
+            //this.Hide();
+            Form2 form2 = new Form2();
+            form2.ShowDialog();
         }
     }
 }

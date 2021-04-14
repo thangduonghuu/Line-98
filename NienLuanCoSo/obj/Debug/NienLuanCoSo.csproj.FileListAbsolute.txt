@@ -18,3 +18,4 @@ C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoS
 C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoSo.csproj.CoreCompileInputs.cache
 C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoSo.exe
 C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoSo.pdb
+C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoSo.Form2.resources
