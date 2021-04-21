@@ -10,7 +10,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
 using System.Threading;
+using System.Runtime.InteropServices;
 using System.IO;
+using System.Reflection;
+
 namespace NienLuanCoSo
 {
     
@@ -27,7 +30,7 @@ namespace NienLuanCoSo
         Boolean canUndo = false;
         String undoPoint;
         Algorithms algo = new Algorithms();
-
+        static private List<PrivateFontCollection> _fontCollections;
         Image[] images = { null,
         (Image)Properties.Resources.yellow,
         (Image)Properties.Resources.pink ,
@@ -80,7 +83,6 @@ namespace NienLuanCoSo
                         if (p.Name == key.ToString())
                         {
                             int corlor = Int32.Parse(NewBoard[key].ToString());
-                            //Image newImage = Image.FromFile(balls[corlor]);
                             Image newImage = images[corlor];
                             p.Image = newImage;
                         }
@@ -115,7 +117,6 @@ namespace NienLuanCoSo
                 startPointY = algo.FirstNumberY(target.Name);
                 colorPicture = board[startPointX, startPointY];
                 if (colorPicture !=0 ) {
-                    //target.Image = Image.FromFile(balls[colorPicture + 5]);
                     target.Image = images[colorPicture + 5];
                 }
 
@@ -188,9 +189,9 @@ namespace NienLuanCoSo
                         {
                             if (c is TextBox && c.Name == "Score")
                             {
-                                PrivateFontCollection pfc = new PrivateFontCollection();
-                                pfc.AddFontFile(@"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\cursed-timer-ulil-font\CursedTimerUlil-Aznm.ttf");
-                                c.Font = new Font(pfc.Families[0], 16, FontStyle.Regular);
+                           
+                                c.Font = new Font("Microsoft Sans Serif", 16, FontStyle.Regular);
+                            
                                 string TempText = c.Text;
                                 c.Text = c.Text + " +" + Score.ToString();
                                 await Task.Delay(500);
@@ -254,13 +255,22 @@ namespace NienLuanCoSo
                     if (c is Panel)
                     {
                         c.Enabled = true;
-                        
                     }
                 }
                 canUndo = true;
             }
         }
-
+        static public Font GetCustomFont(byte[] fontData, float size, FontStyle style)
+        {
+            if (_fontCollections == null) _fontCollections = new List<PrivateFontCollection>();
+            PrivateFontCollection fontCol = new PrivateFontCollection();
+            IntPtr fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
+            Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+            fontCol.AddMemoryFont(fontPtr, fontData.Length);
+            Marshal.FreeCoTaskMem(fontPtr);     //<-- It works!
+            _fontCollections.Add(fontCol);
+            return new Font(fontCol.Families[0], size, style);
+        }
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < 9; i++)

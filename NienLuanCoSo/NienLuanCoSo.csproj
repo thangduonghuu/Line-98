@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -73,6 +74,8 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\CursedTimerUlil-Aznm.ttf" />
+    <None Include="CursedTimerUlil-Aznm.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -98,7 +101,7 @@
     <None Include="Resources\blue.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Font\CursedTimerUlil-Aznm.ttf" />
+    <EmbeddedResource Include="Resources\CursedTimerUlil-Aznm.ttf" />
     <None Include="Resources\green.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +139,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Font\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
