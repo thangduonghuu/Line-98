@@ -22,14 +22,14 @@ namespace NienLuanCoSo
             int counter = 0;
             string line;
             // Add this textbox to form
-            string FilePath = @"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\NienLuanCoSo\bin\Debug\HighScoce.txt";
-            System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\NienLuanCoSo\bin\Debug\HighScoce.txt");
+            //string FilePath = @"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\NienLuanCoSo\bin\Debug\HighScoce.txt";
+            //System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\NienLuanCoSo\bin\Debug\HighScoce.txt");
             List<string> Lines = new List<string>();
             int count = 0;
-            while ((line = file.ReadLine()) != null)
-            {
-                Lines.Add(line);
-            }
+            //while ((line = file.ReadLine()) != null)
+            //{
+            //    Lines.Add(line);
+            //}
             foreach (string eachline in Lines)
             {
                 TextBox textBox = new TextBox();
@@ -56,7 +56,7 @@ namespace NienLuanCoSo
                 //this.Controls.Add(Mybutton);
                 count++;
             }
-            file.Close();
+            //file.Close();
         }
 
 
