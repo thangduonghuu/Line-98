@@ -50,6 +50,7 @@ namespace NienLuanCoSo
             InitializeComponent();
             board = algo.InitBoard();
             LoadImage(board);
+            
             //Console.WriteLine(Properties.Resources.yellow.ToString());
             //GetNewHighScore();
         }
@@ -98,12 +99,8 @@ namespace NienLuanCoSo
         private async void Change_value(object sender, EventArgs e)
         {
             PictureBox target = (PictureBox)sender;
-            //UndoBoard = board;
- 
             if (colorPicture == 0)
             {
-                //UndoBoard = board;
-               
                     UndoBoard = (int[,])board.Clone();
                     
                 foreach (Control c in this.Controls)
@@ -220,14 +217,31 @@ namespace NienLuanCoSo
                     else
                     {
                         if (CreatePoint) 
-                        { 
-                            algo.RandomPointBoard(board);
+                        {
+                            algo.RandomPointBoard(board);  
                             CreatePoint = false;
                         }
+                     
                     }
+                 
                     LoadImage(board);
                     colorPicture = 0;
-                  
+                    Console.WriteLine(algo.CheckgameOver(board));
+                    if (algo.CheckgameOver(board) >78)
+                    {
+                        foreach (Control c in this.Controls)
+                        {
+                            if (c is TextBox && c.Name == "Score")
+                            {
+                                
+                                var form3 = new Form3(c.Text);
+                                form3.Show();
+                                this.Hide();
+                            }
+                        }
+
+                    }
+
                 }
                 else if (board[EndPointX, EndPointY] > 0)
                 {
@@ -237,9 +251,7 @@ namespace NienLuanCoSo
                         PictureBox p = (PictureBox)c;
                         if(p.Name == algo.ConvertTwoPosition(startPointX , startPointY))
                         {
-                            //p.Image = Image.FromFile(balls[colorPicture]);
                             p.Image = images[colorPicture];
-                            //target.Image = Image.board[EndPointX, EndPointY] + 5]);
                             target.Image = images[board[EndPointX, EndPointY] + 5];
                         }
                     }
@@ -250,6 +262,7 @@ namespace NienLuanCoSo
                     EndPointY = 0;
 
                 }
+
                 foreach (Control c in this.Controls)
                 {
                     if (c is Panel)
@@ -330,5 +343,7 @@ namespace NienLuanCoSo
             Form2 form2 = new Form2();
             form2.ShowDialog();
         }
+
+ 
     }
 }

@@ -1299,7 +1299,7 @@ namespace NienLuanCoSo
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Padding = new System.Windows.Forms.Padding(6, 0, 0, 0);
-            this.Text = "Form1";
+            this.Text = "Line 98";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);

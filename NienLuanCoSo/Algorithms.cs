@@ -34,11 +34,11 @@ namespace NienLuanCoSo
         public int CheckgameOver(int[,] board)
         {
             int count = 0;
-            for(int i = 0; i< 9; i++)
+            for (int i = 0; i < 9; i++)
             {
-                for(int j = 0; j < 9; j++)
+                for (int j = 0; j < 9; j++)
                 {
-                    if (board[i, j]!=0)
+                    if (board[i, j] != 0)
                     {
                         count++;
                     }
@@ -46,7 +46,7 @@ namespace NienLuanCoSo
             }
             return count;
         }
-        
+
 
         public void RandomPointBoard(int[,] board)
         {
@@ -54,6 +54,7 @@ namespace NienLuanCoSo
             Random ran = new Random();
             if(CheckgameOver(board) < 3)
             {
+                
                 return;
             }
             while (true)
@@ -172,8 +173,6 @@ namespace NienLuanCoSo
         {
             LinkedList<string> Path = new LinkedList<string>();
             Dictionary<string, string> AllPath = BFS(board, startX, startY, endX, endY);
-        
-
             int x, y;
             int cantFind = 0;
             int[] u = { 1, 0, -1, 0 };
@@ -242,12 +241,10 @@ namespace NienLuanCoSo
         public LinkedList<string> CheckBehind(int[,] board,int PointX , int PointY , int i , int j , int color)
         {
             LinkedList<string> checkBehind = new LinkedList<string>();
-
             int tempPointX = PointX;
             int tempPointY = PointY;
             while (true)
             {
-                
                 tempPointX += i * -1;
                 tempPointY += j * -1;
                 if (isInside(tempPointX, tempPointY))

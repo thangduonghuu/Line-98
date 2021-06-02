@@ -19,3 +19,15 @@ C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoS
 C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoSo.exe
 C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoSo.pdb
 C:\Users\User\OneDrive\Desktop\New folder (2)\NienLuanCoSo\obj\Debug\NienLuanCoSo.Form2.resources
+E:\OneDrive\Desktop\Line-98\NienLuanCoSo\bin\Debug\NienLuanCoSo.exe.config
+E:\OneDrive\Desktop\Line-98\NienLuanCoSo\bin\Debug\NienLuanCoSo.exe
+E:\OneDrive\Desktop\Line-98\NienLuanCoSo\bin\Debug\NienLuanCoSo.pdb
+E:\OneDrive\Desktop\Line-98\NienLuanCoSo\obj\Debug\NienLuanCoSo.csproj.AssemblyReference.cache
+E:\OneDrive\Desktop\Line-98\NienLuanCoSo\obj\Debug\NienLuanCoSo.Form1.resources
+E:\OneDrive\Desktop\Line-98\NienLuanCoSo\obj\Debug\NienLuanCoSo.Form2.resources
+E:\OneDrive\Desktop\Line-98\NienLuanCoSo\obj\Debug\NienLuanCoSo.Properties.Resources.resources
+E:\OneDrive\Desktop\Line-98\NienLuanCoSo\obj\Debug\NienLuanCoSo.csproj.GenerateResource.cache
+E:\OneDrive\Desktop\Line-98\NienLuanCoSo\obj\Debug\NienLuanCoSo.csproj.CoreCompileInputs.cache
+E:\OneDrive\Desktop\Line-98\NienLuanCoSo\obj\Debug\NienLuanCoSo.exe
+E:\OneDrive\Desktop\Line-98\NienLuanCoSo\obj\Debug\NienLuanCoSo.pdb
+E:\OneDrive\Desktop\Line-98\NienLuanCoSo\obj\Debug\NienLuanCoSo.Form3.resources
