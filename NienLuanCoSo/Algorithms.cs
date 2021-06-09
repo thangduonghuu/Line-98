@@ -114,16 +114,7 @@ namespace NienLuanCoSo
 
             return CheckBoard;
         }
-        public int[,] doiMauDiemCuoi(string point , int[,] board )
-        {
-            int x = FirstNumberX(point);
-            int y = FirstNumberY(point);
-            board[x, y] = 2;
-            return board;
-        }
-
-        
-      
+ 
         public Dictionary<string, string> BFS(int[,] board, int startX, int startY, int endX, int endY)
         {
             LinkedList<string> PathQueue = new LinkedList<string>();
@@ -318,8 +309,6 @@ namespace NienLuanCoSo
             }
             return finnalScorePoint;
         }
-
-
         bool isInside(int i, int j)
         {
             return (i >= 0 && i < 9 && j >= 0 && j < 9);

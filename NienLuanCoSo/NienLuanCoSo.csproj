@@ -104,12 +104,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\brown.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\blue.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\CursedTimerUlil-Aznm.ttf" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\gameover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images-removebg-preview.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

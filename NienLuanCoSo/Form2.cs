@@ -21,9 +21,11 @@ namespace NienLuanCoSo
         {
             int counter = 0;
             string line;
+            var fs = new System.IO.FileStream(@".\Resources2.resources",
+                                  System.IO.FileMode.Open);
             // Add this textbox to form
             //string FilePath = @"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\NienLuanCoSo\bin\Debug\HighScoce.txt";
-            //System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\NienLuanCoSo\bin\Debug\HighScoce.txt");
+            //System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Users\User\OneDrive\Desktop\NienLuan\NienLuan\NienLuanCoSo\bin\Debug\HighScorce.txt");
             List<string> Lines = new List<string>();
             int count = 0;
             //while ((line = file.ReadLine()) != null)
@@ -59,9 +61,9 @@ namespace NienLuanCoSo
             //file.Close();
         }
 
+        private void Form2_Load(object sender, EventArgs e)
+        {
 
-
-
-
+        }
     }
 }
